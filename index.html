@@ -1,0 +1,724 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Memories Bily and Wandee</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      :root {
+        --bg-card: rgba(255,255,255,0.12);
+        --bg-card-strong: rgba(255,255,255,0.18);
+        --text: #ffffff;
+        --muted: rgba(255,255,255,0.82);
+        --primary: #ff4f87;
+        --primary-hover: #e63c73;
+        --border: rgba(255,255,255,0.18);
+        --shadow: 0 10px 28px rgba(0,0,0,0.28);
+      }
+
+      body {
+        min-height: 100vh;
+        background:
+          linear-gradient(rgba(15, 10, 20, 0.66), rgba(15, 10, 20, 0.8)),
+          url("https://files.catbox.moe/8u0h5z.jpeg")
+          center/cover no-repeat fixed;
+        color: var(--text);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .center-page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .glass {
+        width: 100%;
+        max-width: 440px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .glass h1 {
+        text-align: center;
+        margin-bottom: 12px;
+      }
+
+      .subtext {
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 22px;
+      }
+
+      .input-group {
+        margin-bottom: 14px;
+      }
+
+      .input-group label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: var(--muted);
+      }
+
+      .input-group input,
+      .input-group select {
+        width: 100%;
+        border: 1px solid rgba(255,255,255,0.1);
+        outline: none;
+        border-radius: 14px;
+        padding: 12px 14px;
+        background: rgba(255,255,255,0.14);
+        color: white;
+        font-size: 14px;
+      }
+
+      .input-group input::placeholder {
+        color: rgba(255,255,255,0.65);
+      }
+
+      .btn {
+        width: 100%;
+        border: none;
+        border-radius: 999px;
+        padding: 12px 16px;
+        background: var(--primary);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+      }
+
+      .error-text {
+        min-height: 20px;
+        margin-top: 10px;
+        text-align: center;
+        color: #ffd6e2;
+        font-size: 14px;
+      }
+
+      .app {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        flex: 1;
+        min-width: 220px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .brand h1 {
+        font-size: 26px;
+        margin-bottom: 6px;
+      }
+
+      .brand p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .small-btn {
+        border: none;
+        border-radius: 12px;
+        padding: 10px 14px;
+        background: var(--bg-card-strong);
+        color: white;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+      }
+
+      .lang-select {
+        min-width: 140px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      .card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .big-number {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffd8e5;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        border: none;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--bg-card-strong);
+        color: white;
+        cursor: pointer;
+        border: 1px solid var(--border);
+      }
+
+      .tab-btn.active {
+        background: var(--primary);
+      }
+
+      .section-title {
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+
+      .section-sub {
+        margin-bottom: 16px;
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .filter-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: end;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+
+      .filter-row .input-group {
+        margin-bottom: 0;
+        min-width: 220px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .memory-card {
+        background: rgba(255,255,255,0.10);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
+        aspect-ratio: 1 / 1;
+      }
+
+      .memory-card img,
+      .memory-card iframe,
+      .memory-card video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: #120c17;
+        object-fit: cover;
+        border: none;
+      }
+
+      .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 26px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.08);
+        border: 1px dashed rgba(255,255,255,0.2);
+        color: var(--muted);
+      }
+
+      .footer-note {
+        margin-top: 16px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      @media (max-width: 900px) {
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .app {
+          padding: 12px;
+        }
+
+        .brand h1 {
+          font-size: 22px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar,
+        .filter-row,
+        .actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .small-btn,
+        .lang-select {
+          width: 100%;
+        }
+
+        .tabs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .tab-btn {
+          width: 100%;
+        }
+
+        .glass {
+          padding: 22px 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- LOGIN -->
+    <section id="loginPage" class="center-page">
+      <div class="glass">
+        <h1 data-i18n="loginTitle">Our Memories Bily and Wandee</h1>
+        <p class="subtext" data-i18n="loginSubtitle">
+          Login first. So random curious creatures cannot open this little memory album.
+        </p>
+
+        <div class="input-group">
+          <label for="username" data-i18n="nameLabel">Name</label>
+          <input type="text" id="username" data-i18n-placeholder="namePlaceholder" placeholder="Enter your name" />
+        </div>
+
+        <div class="input-group">
+          <label for="password" data-i18n="passwordLabel">Password</label>
+          <input type="password" id="password" data-i18n-placeholder="passwordPlaceholder" placeholder="Enter password" />
+        </div>
+
+        <div class="input-group">
+          <label for="loginLang" data-i18n="languageLabel">Language</label>
+          <select id="loginLang" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="th">ไทย</option>
+          </select>
+        </div>
+
+        <button class="btn" onclick="login()" data-i18n="loginButton">Login</button>
+        <div class="error-text" id="loginError"></div>
+      </div>
+    </section>
+
+    <!-- APP -->
+    <section id="appPage" class="hidden">
+      <div class="app">
+        <div class="topbar">
+          <div class="brand">
+            <h1 data-i18n="dashboardTitle">Memory Dashboard</h1>
+            <p data-i18n="dashboardSubtitle">
+              A clean gallery for photos and videos, sorted by month and easy to open on mobile.
+            </p>
+          </div>
+
+          <div class="actions">
+            <select id="appLang" class="small-btn lang-select" onchange="changeLanguage(this.value)">
+              <option value="en">English</option>
+              <option value="th">ไทย</option>
+            </select>
+            <button class="small-btn" onclick="logout()" data-i18n="logoutButton">Logout</button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="card">
+            <h3 data-i18n="totalPhotos">Total Photos</h3>
+            <div class="big-number" id="totalPhotos">0</div>
+          </div>
+          <div class="card">
+            <h3 data-i18n="totalVideos">Total Videos</h3>
+            <div class="big-number" id="totalVideos">0</div>
+          </div>
+          <div class="card">
+            <h3 data-i18n="totalMonths">Total Months</h3>
+            <div class="big-number" id="totalMonths">0</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('photo', event)" data-i18n="photoGalleryTab">Photo Gallery</button>
+            <button class="tab-btn" onclick="switchTab('video', event)" data-i18n="videoGalleryTab">Video Gallery</button>
+          </div>
+
+          <div class="filter-row">
+            <div>
+              <h2 class="section-title" id="galleryTitle" data-i18n="photoGalleryTitle">Photo Gallery</h2>
+              <p class="section-sub" data-i18n="gallerySubtitle">Simple, clean, and sorted by month.</p>
+            </div>
+
+            <div class="input-group">
+              <label for="monthFilter" data-i18n="filterMonthLabel">Filter Month</label>
+              <select id="monthFilter" onchange="renderGallery()"></select>
+            </div>
+          </div>
+
+          <div id="galleryContainer" class="gallery-grid"></div>
+
+          <p class="footer-note" data-i18n="footerNote">
+            Media here uses online links, so make sure the links are public.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const APP_USERNAME = "bilyandwandee";
+      const APP_PASSWORD = "sayangkita";
+      const LOGIN_KEY = "kenangan_kita_login_v4";
+      const LANG_KEY = "kenangan_kita_lang_v4";
+
+      let currentTab = "photo";
+      let currentLang = localStorage.getItem(LANG_KEY) || "en";
+
+      const translations = {
+        en: {
+          pageTitle: "Our Memories Bily and Wandee",
+          loginTitle: "Our Memories Bily and Wandee",
+          loginSubtitle: "Login first. So random curious creatures cannot open this little memory album.",
+          nameLabel: "Name",
+          namePlaceholder: "Enter your name",
+          passwordLabel: "Password",
+          passwordPlaceholder: "Enter password",
+          languageLabel: "Language",
+          loginButton: "Login",
+          loginError: "Wrong name or password.",
+          dashboardTitle: "Memory Dashboard",
+          dashboardSubtitle: "A clean gallery for photos and videos, sorted by month and easy to open on mobile.",
+          logoutButton: "Logout",
+          totalPhotos: "Total Photos",
+          totalVideos: "Total Videos",
+          totalMonths: "Total Months",
+          photoGalleryTab: "Photo Gallery",
+          videoGalleryTab: "Video Gallery",
+          photoGalleryTitle: "Photo Gallery",
+          videoGalleryTitle: "Video Gallery",
+          gallerySubtitle: "Simple, clean, and sorted by month.",
+          filterMonthLabel: "Filter Month",
+          allMonths: "All Months",
+          emptyState: "No memories in this section yet.",
+          footerNote: "Media here uses online links, so make sure the links are public."
+        },
+        th: {
+          pageTitle: "ความทรงจำของเรา บิลลี่กับวันดี",
+          loginTitle: "ความทรงจำของเรา บิลลี่กับวันดี",
+          loginSubtitle: "กรุณาเข้าสู่ระบบก่อน เพื่อไม่ให้คนอื่นมาเปิดอัลบั้มความทรงจำนี้ได้ง่าย ๆ",
+          nameLabel: "ชื่อ",
+          namePlaceholder: "กรอกชื่อ",
+          passwordLabel: "รหัสผ่าน",
+          passwordPlaceholder: "กรอกรหัสผ่าน",
+          languageLabel: "ภาษา",
+          loginButton: "เข้าสู่ระบบ",
+          loginError: "ชื่อหรือรหัสผ่านไม่ถูกต้อง",
+          dashboardTitle: "แดชบอร์ดความทรงจำ",
+          dashboardSubtitle: "แกลเลอรีรูปภาพและวิดีโอแบบเรียบง่าย แยกตามเดือน และเปิดบนมือถือได้สะดวก",
+          logoutButton: "ออกจากระบบ",
+          totalPhotos: "จำนวนรูปภาพ",
+          totalVideos: "จำนวนวิดีโอ",
+          totalMonths: "จำนวนเดือน",
+          photoGalleryTab: "แกลเลอรีรูปภาพ",
+          videoGalleryTab: "แกลเลอรีวิดีโอ",
+          photoGalleryTitle: "แกลเลอรีรูปภาพ",
+          videoGalleryTitle: "แกลเลอรีวิดีโอ",
+          gallerySubtitle: "เรียบง่าย สะอาดตา และแยกตามเดือน",
+          filterMonthLabel: "กรองตามเดือน",
+          allMonths: "ทุกเดือน",
+          emptyState: "ยังไม่มีความทรงจำในส่วนนี้",
+          footerNote: "สื่อในหน้านี้ใช้ลิงก์ออนไลน์ ดังนั้นลิงก์ต้องเปิดสาธารณะ"
+        }
+      };
+
+      const memories = [
+        {
+          id: 1,
+          type: "photo",
+          month: "2026-01",
+          src: "https://files.catbox.moe/6jtlfa.jpeg"
+        },
+        {
+          id: 2,
+          type: "photo",
+          month: "2026-01",
+          src: "https://files.catbox.moe/c8dz4g.jpeg"
+        },
+        {
+          id: 3,
+          type: "photo",
+          month: "2026-02",
+          src: "https://files.catbox.moe/6styfn.jpeg"
+        },
+        {
+          id: 4,
+          type: "video",
+          month: "2026-03",
+          src: "https://files.catbox.moe/1rird3.mp4"
+        },
+        {
+          id: 5,
+          type: "video",
+          month: "2026-03",
+          src: "https://files.catbox.moe/1rird3.mp4"
+        }
+      ];
+
+      function t(key) {
+        return translations[currentLang][key] || key;
+      }
+
+      function saveLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem(LANG_KEY, lang);
+      }
+
+      function changeLanguage(lang) {
+        saveLanguage(lang);
+        document.documentElement.lang = lang;
+        document.title = t("pageTitle");
+
+        const loginLang = document.getElementById("loginLang");
+        const appLang = document.getElementById("appLang");
+
+        if (loginLang) loginLang.value = lang;
+        if (appLang) appLang.value = lang;
+
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          el.textContent = t(key);
+        });
+
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          el.placeholder = t(key);
+        });
+
+        document.getElementById("galleryTitle").textContent =
+          currentTab === "photo" ? t("photoGalleryTitle") : t("videoGalleryTitle");
+
+        updateStats();
+        populateMonthFilter();
+        renderGallery();
+      }
+
+      function login() {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const errorEl = document.getElementById("loginError");
+
+        if (username === APP_USERNAME && password === APP_PASSWORD) {
+          localStorage.setItem(LOGIN_KEY, "true");
+          document.getElementById("loginPage").classList.add("hidden");
+          document.getElementById("appPage").classList.remove("hidden");
+          initApp();
+          errorEl.textContent = "";
+        } else {
+          errorEl.textContent = t("loginError");
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem(LOGIN_KEY);
+        document.getElementById("appPage").classList.add("hidden");
+        document.getElementById("loginPage").classList.remove("hidden");
+        changeLanguage(currentLang);
+      }
+
+      function formatMonth(monthValue) {
+        if (!monthValue) return "-";
+        const [year, month] = monthValue.split("-");
+        const monthIndex = parseInt(month, 10) - 1;
+
+        const monthNames = {
+          en: [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ],
+          th: [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+          ]
+        };
+
+        return `${monthNames[currentLang][monthIndex]} ${year}`;
+      }
+
+      function updateStats() {
+        document.getElementById("totalPhotos").textContent =
+          memories.filter(item => item.type === "photo").length;
+
+        document.getElementById("totalVideos").textContent =
+          memories.filter(item => item.type === "video").length;
+
+        document.getElementById("totalMonths").textContent =
+          [...new Set(memories.map(item => item.month))].length;
+      }
+
+      function getMonthsByTab() {
+        return [...new Set(
+          memories
+            .filter(item => item.type === currentTab)
+            .map(item => item.month)
+        )].sort().reverse();
+      }
+
+      function populateMonthFilter() {
+        const monthFilter = document.getElementById("monthFilter");
+        const months = getMonthsByTab();
+
+        monthFilter.innerHTML = `<option value="all">${t("allMonths")}</option>`;
+
+        months.forEach(month => {
+          const option = document.createElement("option");
+          option.value = month;
+          option.textContent = formatMonth(month);
+          monthFilter.appendChild(option);
+        });
+      }
+
+      function switchTab(tab, event) {
+        currentTab = tab;
+
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+        event.target.classList.add("active");
+        document.getElementById("galleryTitle").textContent =
+          tab === "photo" ? t("photoGalleryTitle") : t("videoGalleryTitle");
+
+        populateMonthFilter();
+        renderGallery();
+      }
+
+      function renderGallery() {
+  const container = document.getElementById("galleryContainer");
+  const selectedMonth = document.getElementById("monthFilter").value;
+
+  let filtered = memories.filter(item => item.type === currentTab);
+
+  if (selectedMonth !== "all") {
+    filtered = filtered.filter(item => item.month === selectedMonth);
+  }
+
+  filtered.sort((a, b) => b.month.localeCompare(a.month));
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state">${t("emptyState")}</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(item => {
+    return `
+      <div class="memory-card">
+        ${
+          item.type === "photo"
+            ? `<img src="${item.src}" alt="photo">`
+            : `<video controls playsinline>
+                 <source src="${item.src}" type="video/mp4">
+               </video>`
+        }
+      </div>
+    `;
+  }).join("");
+}
+
+      function initApp() {
+        updateStats();
+        populateMonthFilter();
+        renderGallery();
+        changeLanguage(currentLang);
+      }
+
+      window.onload = function() {
+        const isLoggedIn = localStorage.getItem(LOGIN_KEY) === "true";
+
+        changeLanguage(currentLang);
+
+        if (isLoggedIn) {
+          document.getElementById("loginPage").classList.add("hidden");
+          document.getElementById("appPage").classList.remove("hidden");
+          initApp();
+        }
+      };
+    </script>
+  </body>
+  </html>
